@@ -1,6 +1,4 @@
 #!/bin/bash
-echo "发版版本: $1"
-
 set -e
 
 SOURCE="${BASH_SOURCE[0]}"
@@ -15,17 +13,24 @@ PARENT_DIR=$(dirname "$DIR")
 source $PARENT_DIR/release/shell-utils/list_input.sh
 
 productNames=( 'All' 'Admin' 'Ib' 'Client' 'Ec-website' 'Mobile' )
-list_input "请选择要发布的版本?" productNames selected_product
+list_input "Please select product:" productNames selected_product
 
-echo "发布项目: $selected_product"
+versions=( 'patch' 'minor' 'major' 'use release-it select')
+list_input "Select increment (next version, major.minor.patch):" versions version
 
+echo "发布项目: $selected_product  version: $version "
 
 releaseTmdAdmin(){
   cd /Users/jianchen/work/tmd/tmd-admin
   echo '开始tag项目: tmd-admin'
   pwd
   git pull origin dev
-  yarn release $1
+  if [ $version == 'other' ]
+  then
+    yarn release
+  else
+    yarn release $version
+  fi
 }
 
 releaseTmdIB(){
@@ -33,7 +38,12 @@ releaseTmdIB(){
   echo '开始tag项目: tmd-IB-web'
   pwd
   git pull origin dev
-  yarn release $1
+  if [ $version == 'other' ]
+  then
+    yarn release
+  else
+    yarn release $version
+  fi
 }
 
 releaseTmdPC(){
@@ -41,7 +51,12 @@ releaseTmdPC(){
   echo '开始tag项目: tmd-pc-web'
   pwd
   git pull origin dev
-  yarn release $1
+  if [ $version == 'other' ]
+  then
+    yarn release
+  else
+    yarn release $version
+  fi
 }
 
 releaseEcWebsite(){
@@ -49,7 +64,12 @@ releaseEcWebsite(){
   echo '开始tag项目: ec-website'
   pwd
   git pull origin dev
-  yarn release $1
+  if [ $version == 'other' ]
+  then
+    yarn release
+  else
+    yarn release $version
+  fi
 }
 
 releaseMobile(){
@@ -57,7 +77,12 @@ releaseMobile(){
   echo '开始tag项目: tmd-mobile-next'
   pwd
   git pull origin dev
-  yarn release $1
+  if [ $version == 'other' ]
+  then
+    yarn release
+  else
+    yarn release $version
+  fi
 }
 
 if [ $selected_product == "Admin" ]
