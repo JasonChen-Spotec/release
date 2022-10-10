@@ -11,6 +11,11 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 PARENT_DIR=$(dirname "$DIR")
 source $PARENT_DIR/release/shell-utils/list_input.sh
+source $PARENT_DIR/release/shell-utils/text_input.sh
+
+text_input "please entry release branch: " branch 'dev'
+
+echo "release branch: $branch"
 
 productNames=( 'All' 'Admin' 'Ib' 'Client' 'Ec-website' 'Mobile' )
 list_input "Please select product:" productNames selected_product
@@ -21,10 +26,11 @@ list_input "Select increment (next version, major.minor.patch):" versions versio
 echo "发布项目: $selected_product  version: $version "
 
 releaseTmdAdmin(){
-  cd /Users/jianchen/work/tmd/tmd-admin
+  cd $PARENT_DIR/tmd-admin
   echo '开始tag项目: tmd-admin'
   pwd
-  git pull origin dev
+  git checkout $branch
+  git pull origin $branch
   if [ $version == 'other' ]
   then
     yarn release
@@ -34,10 +40,11 @@ releaseTmdAdmin(){
 }
 
 releaseTmdIB(){
-  cd /Users/jianchen/work/tmd/tmd-IB-web
+  cd $PARENT_DIR/tmd-IB-web
   echo '开始tag项目: tmd-IB-web'
   pwd
-  git pull origin dev
+  git checkout $branch
+  git pull origin $branch
   if [ $version == 'other' ]
   then
     yarn release
@@ -47,10 +54,11 @@ releaseTmdIB(){
 }
 
 releaseTmdPC(){
-  cd /Users/jianchen/work/tmd/tmd-pc-web
+  cd $PARENT_DIR/tmd-pc-web
   echo '开始tag项目: tmd-pc-web'
   pwd
-  git pull origin dev
+  git checkout $branch
+  git pull origin $branch
   if [ $version == 'other' ]
   then
     yarn release
@@ -60,10 +68,11 @@ releaseTmdPC(){
 }
 
 releaseEcWebsite(){
-  cd /Users/jianchen/work/tmd/ec-website
+  cd $PARENT_DIR/ec-website
   echo '开始tag项目: ec-website'
   pwd
-  git pull origin dev
+  git checkout $branch
+  git pull origin $branch
   if [ $version == 'other' ]
   then
     yarn release
@@ -73,10 +82,11 @@ releaseEcWebsite(){
 }
 
 releaseMobile(){
-  cd /Users/jianchen/work/tmd/tmd-mobile-next
+  cd $PARENT_DIR/tmd-mobile-next
   echo '开始tag项目: tmd-mobile-next'
   pwd
-  git pull origin dev
+  git checkout $branch
+  git pull origin $branch
   if [ $version == 'other' ]
   then
     yarn release
