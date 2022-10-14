@@ -69,7 +69,7 @@ releaseBranchMobile(){
 }
 
 
-if [[ $branch =~ ^ec-branch-[1-9]{1}.[1-9]{1}.x$ ]]
+if [[ $branch =~ ^ec-release-[1-9]{1}.[0-9]{1}.x$ ]]
 then
   releaseBranchTmdAdmin
   releaseBranchTmdIB
@@ -77,7 +77,7 @@ then
   releaseBranchEcWebsite
   releaseBranchMobile
 else
-echo '分支名不符合要求, 请使用^ec-branch-[1-9]{1}.[1-9]{1}.x$ 格式'
+echo '分支名不符合要求, 请使用^ec-release-[1-9]{1}.[1-9]{1}.x$ 格式'
 fi
 
 

@@ -13,17 +13,22 @@ PARENT_DIR=$(dirname "$DIR")
 source $PARENT_DIR/release/shell-utils/list_input.sh
 source $PARENT_DIR/release/shell-utils/text_input.sh
 
+source $PARENT_DIR/release/shell-utils/checkbox_input.sh
+
+productNames=( 'All' 'Admin' 'Ib' 'Client' 'Ec-website' 'Mobile' )
+checkbox_input "Which hawker centres do you prefer?" productNames selected_products
+
 text_input "please entry release branch: " branch 'dev'
 
 echo "release branch: $branch"
 
-productNames=( 'All' 'Admin' 'Ib' 'Client' 'Ec-website' 'Mobile' )
-list_input "Please select product:" productNames selected_product
-
 versions=( 'patch' 'minor' 'major' 'use release-it select')
 list_input "Select increment (next version, major.minor.patch):" versions version
 
-echo "发布项目: $selected_product  version: $version "
+echo "发布项目:  $(join selected_products)  version: $version "
+
+
+releaseProducts="$(join selected_products)"
 
 releaseTmdAdmin(){
   cd $PARENT_DIR/tmd-admin
@@ -95,26 +100,40 @@ releaseMobile(){
   fi
 }
 
-if [ $selected_product == "Admin" ]
+if [[ $releaseProducts =~ "All" ]]
 then
   releaseTmdAdmin
-elif [ $selected_product == 'Ib' ]
-then
   releaseTmdIB
-elif [ $selected_product == 'Client' ]
-then
   releaseTmdPC
-elif [ $selected_product == 'Ec-website' ]
-then
   releaseEcWebsite
-elif [ $selected_product == 'Mobile' ]
-then
   releaseMobile
 else
-  releaseTmdAdmin
-  releaseTmdIB
-  releaseTmdPC
-  releaseEcWebsite
-  releaseMobile
+  if [[ $releaseProducts =~ "Admin" ]]
+  then
+    echo "release Admin start"
+    releaseTmdAdmin
+  fi
+  if [[ $releaseProducts =~ 'Ib' ]]
+  then
+    echo "release Ib start"
+    releaseTmdIB
+  fi
+  if [[ $releaseProducts =~ 'Client' ]]
+  then
+    echo "release Client start"
+    releaseTmdPC
+  fi
+  if [[ $releaseProducts =~ 'Ec-website' ]]
+  then
+    echo "release Ec-website start"
+    releaseEcWebsite
+  fi
+  if [[ $releaseProducts =~ 'Mobile' ]]
+  then
+    echo "release Mobile start"
+    releaseMobile
+  fi
 fi
+
+
 
