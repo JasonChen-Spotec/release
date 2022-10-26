@@ -26,7 +26,7 @@ releaseBranchTmdAdmin(){
   git checkout dev
   git pull origin dev
   git branch $branch
-  git pull origin $branch
+  git push origin $branch
 }
 
 releaseBranchTmdIB(){
@@ -36,7 +36,7 @@ releaseBranchTmdIB(){
   git checkout dev
   git pull origin dev
   git branch $branch
-  git pull origin $branch
+  git push origin $branch
 }
 
 releaseBranchTmdPC(){
@@ -45,7 +45,7 @@ releaseBranchTmdPC(){
   git checkout dev
   git pull origin dev
   git branch $branch
-  git pull origin $branch
+  git push origin $branch
 }
 
 releaseBranchEcWebsite(){
@@ -55,7 +55,7 @@ releaseBranchEcWebsite(){
   git checkout dev
   git pull origin dev
   git branch $branch
-  git pull origin $branch
+  git push origin $branch
 }
 
 releaseBranchMobile(){
@@ -65,7 +65,7 @@ releaseBranchMobile(){
   git checkout dev
   git pull origin dev
   git branch $branch
-  git pull origin $branch
+  git push origin $branch
 }
 
 
